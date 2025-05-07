@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Cursor AppImageランチャースクリプト
+# このスクリプトは/usr/local/bin/cursorに配置することを想定しています
+
+# AppImageのディレクトリパスを設定
+CURSOR_DIR="$HOME/Downloads/"
+
+# バージョン情報を含むAppImageファイルを探す
+CURSOR_APPIMAGE=$(find "$CURSOR_DIR" -name "cursor-*x86_64.AppImage" -type f | sort -V | tail -n 1)
+
+# バージョン情報の抽出
+if [ -f "$CURSOR_APPIMAGE" ]; then
+    VERSION=$(basename "$CURSOR_APPIMAGE" | sed -E 's/cursor-(.*)x86_64.AppImage/\1/')
+else
+    echo "Error: Cursor AppImage not found in $CURSOR_DIR"
+    echo "Please ensure Cursor AppImage is installed in $CURSOR_DIR"
+    exit 1
+fi
+
+# バージョン情報の表示（-vまたは--versionオプションの場合）
+if [ "$1" = "-v" ] || [ "$1" = "--version" ]; then
+    echo "Cursor version $VERSION"
+    exit 0
+fi
+
+# ヘルプ情報の表示（-hまたは--helpオプションの場合）
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+    echo "Cursor $VERSION"
+    echo ""
+    echo "Usage: cursor [options][paths...]"
+    "$CURSOR_APPIMAGE" --help
+    exit 0
+fi
+
+# AppImageに実行権限があるか確認
+if [ ! -x "$CURSOR_APPIMAGE" ]; then
+    echo "Adding execute permission to Cursor AppImage..."
+    chmod +x "$CURSOR_APPIMAGE"
+fi
+
+# 環境変数の設定
+export CURSOR_VERSION="$VERSION"
+export CURSOR_APPIMAGE_PATH="$CURSOR_APPIMAGE"
+
+# デバッグ情報の表示（--verboseオプションの場合）
+if [[ "$*" == *"--verbose"* ]]; then
+    echo "Debug information:"
+    echo "Cursor version: $VERSION"
+    echo "AppImage path: $CURSOR_APPIMAGE"
+    echo "Command line arguments: $@"
+fi
+
+# Wayland関連の引数を追加
+WAYLAND_ARGS="--enable-features=UseOzonePlatform --ozone-platform=wayland --enable-wayland-ime"
+
+# 引数をそのまま渡して実行（ユーザー引数を先に渡し、その後にWayland引数を追加）
+exec "$CURSOR_APPIMAGE" "$@" $WAYLAND_ARGS
