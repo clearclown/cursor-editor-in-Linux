@@ -35,45 +35,14 @@ This document provides detailed instructions for installing and setting up the C
    cursor --version
    ```
 
-## Alternative Installation Methods
-
-### Installation for a single user
-
-If you don't have sudo privileges or prefer a user-specific installation:
-
-1. **Create a bin directory in your home folder if it doesn't exist**
-
-   ```bash
-   mkdir -p ~/bin
-   ```
-
-2. **Download and move the script**
-
-   ```bash
-   wget -O ~/bin/cursor https://raw.githubusercontent.com/YOUR_USERNAME/cursor-wayland-launcher/main/cursor
-   chmod +x ~/bin/cursor
-   ```
-
-3. **Add to PATH**
-
-   Add the following to your `~/.bashrc` or `~/.zshrc`:
-
-   ```bash
-   export PATH="$HOME/bin:$PATH"
-   ```
-
-4. **Reload your shell configuration**
-
-   ```bash
-   source ~/.bashrc  # or source ~/.zshrc
-   ```
+## Alternative Installation Methods   ```
 
 ### Manual Installation
 
 1. **Clone this repository**
 
    ```bash
-   git clone https://github.com/YOUR_USERNAME/cursor-wayland-launcher.git
+   git clone git@github.com:clearclown/cursor-editor-in-Linux.git
    ```
 
 2. **Copy the script**
