@@ -1,6 +1,18 @@
 # Cursor Editor Linux Launcher
 
+## Translations
+
+This project includes documentation in multiple languages:
+
+- [English (Default)](./README.md)
+- [日本語 / Japanese](./translation/Japa/README.ja.md)
+
+Additional documentation in Japanese is available in the `translation/Japa/` directory:
+- [一般的な問題 / Common Issues](./translation/Japa/COMMON_ISSUES.ja.md)
+- [Cursorについて / About Cursor](./translation/Japa/ABOUT_CURSOR.ja.md)
+
 A robust launcher script for Cursor AI editor on Linux that enhances compatibility with Wayland and provides additional features for Linux users.
+
 
 ## What is Cursor?
 
